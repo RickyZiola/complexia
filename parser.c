@@ -25,6 +25,18 @@ const char* tok_typ_to_str(TokenType tokenType) {
         default: return "UNKNOWN_TOKEN_TYPE";
     }
 }
+const char *opcode_to_str(Opcode opcode) {
+    switch (opcode) {
+        STRINGIFY_ENUM_CASE(OP_CONST)
+        STRINGIFY_ENUM_CASE(OP_ADD)
+        STRINGIFY_ENUM_CASE(OP_SUB)
+        STRINGIFY_ENUM_CASE(OP_MUL)
+        STRINGIFY_ENUM_CASE(OP_DIV)
+        STRINGIFY_ENUM_CASE(OP_POW)
+        STRINGIFY_ENUM_CASE(OP_DONE)
+        default: return "UNKNOWN_OPCODE";
+    }
+}
 
 char next(Lexer *l) {
     return l->input[l->idx++];
@@ -107,7 +119,7 @@ Token scan(Lexer *l) {
     }
 }
 
-void print(Token tok) {
+void print_tok(Token tok) {
     if (tok.typ == TOKEN_NUMBER_LITERAL) {
         printf("%s: %f + %fi\n", tok_typ_to_str(tok.typ), tok.data.num.real, tok.data.num.imag);
     } else {
@@ -186,7 +198,7 @@ void paren(Parser *p) {
 void primary(Parser *p) {
     if (next_is(p, TOKEN_NUMBER_LITERAL)) {
         // TODO: bytecode for number literals
-        print(scan(p->l));
+        print_tok(scan(p->l));
         return;
     }
     expr(p);

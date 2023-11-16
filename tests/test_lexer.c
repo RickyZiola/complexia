@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
     Token tok;
 
     while ((tok = scan(&lexer)).typ != TOKEN_EOF) {
-        print(tok);
+        print_tok(tok);
     }
 
     return 0;

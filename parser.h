@@ -6,6 +6,13 @@
 #include <stdbool.h>
 #include <string.h>
 
+typedef enum Opcode {
+    OP_CONST,
+    OP_ADD, OP_SUB,
+    OP_MUL, OP_DIV,
+    OP_POW, OP_DONE
+} Opcode;
+
 typedef enum TokenType {
     TOKEN_NUMBER_LITERAL,
     TOKEN_PLUS, TOKEN_MINUS,
@@ -18,7 +25,8 @@ typedef enum TokenType {
 } TokenType;
 
 #define STRINGIFY_ENUM_CASE(enumValue) case enumValue: return #enumValue;
-const char* tok_typ_to_str(TokenType tokenType);
+const char *tok_typ_to_str(TokenType tokenType);
+const char *opcode_to_str(Opcode opcode);
 
 typedef struct Complex {
     float real;
@@ -45,14 +53,14 @@ typedef unsigned char *Bytecode;
 
 typedef struct Parser {
     Lexer *l;
-    Bytecode *out;
+    Bytecode out;
 } Parser;
 
 char next(Lexer *lexer);
 char current(Lexer *lexer);
 bool at_end(Lexer *lexer);
 Token scan(Lexer *lexer);
-void print(Token tok);
+void print_tok(Token tok);
 
 void compile(Parser *parser);  // Compile. This is essentially an alias for expr
 void expr(Parser *parser);     // Expression
@@ -61,5 +69,7 @@ void exponent(Parser *parser); // Exponent (a^b)
 void factor(Parser *parser);   // Mult/div
 void term(Parser *parser);     // Add/sub
 void primary(Parser *parser);  // Number constant
+
+void disasm(Bytecode bc);
 
 #endif
