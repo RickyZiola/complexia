@@ -120,7 +120,7 @@ static bool next_is(Parser *p, TokenType typ) {
 }
 static bool consume(Parser *p, TokenType typ) {
     if (!next_is(p, typ)) return false;
-    (void) next(p->l);
+    (void) scan(p->l);
     return true;
 }
 
@@ -135,6 +135,7 @@ void term(Parser *p) {
     factor(p);
 
     while (next_is(p, TOKEN_PLUS) || next_is(p, TOKEN_MINUS)) {
+        printf(" term \n");
         if (consume(p, TOKEN_PLUS) && consume(p, TOKEN_MINUS)) {
             printf("Expected expression after plus or minus token.\n");
             exit(EXIT_FAILURE);
@@ -149,6 +150,7 @@ void factor(Parser *p) {
     exponent(p);
 
     while (next_is(p, TOKEN_MULT) || next_is(p, TOKEN_DIV)) {
+        printf(" fac \n");
         if (consume(p, TOKEN_MULT) && consume(p, TOKEN_DIV)) {
             printf("Expected expression after mult or div token.\n");
             exit(EXIT_FAILURE);
@@ -163,6 +165,7 @@ void exponent(Parser *p) {
     paren(p);
 
     while (next_is(p, TOKEN_POW)) {
+        printf(" pow \n");
         consume(p, TOKEN_POW);
 
         // right operand
@@ -181,8 +184,10 @@ void paren(Parser *p) {
     }
 }
 void primary(Parser *p) {
-    if (!next_is(p, TOKEN_NUMBER_LITERAL)) {
-        printf("Exptected number literal.\n");
-        exit(EXIT_FAILURE);
+    if (next_is(p, TOKEN_NUMBER_LITERAL)) {
+        // TODO: bytecode for number literals
+        print(scan(p->l));
+        return;
     }
+    expr(p);
 }

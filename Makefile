@@ -129,12 +129,26 @@ test_lexer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/build
 .PHONY : test_lexer/fast
 
+#=============================================================================
+# Target rules for targets named test_parser
+
+# Build rule for target.
+test_parser: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_parser
+.PHONY : test_parser
+
+# fast build rule for target.
+test_parser/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/build
+.PHONY : test_parser/fast
+
 parser.o: parser.c.o
 .PHONY : parser.o
 
 # target to build an object file
 parser.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/parser.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/parser.c.o
 .PHONY : parser.c.o
 
 parser.i: parser.c.i
@@ -143,6 +157,7 @@ parser.i: parser.c.i
 # target to preprocess a source file
 parser.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/parser.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/parser.c.i
 .PHONY : parser.c.i
 
 parser.s: parser.c.s
@@ -151,6 +166,7 @@ parser.s: parser.c.s
 # target to generate assembly for a file
 parser.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/parser.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/parser.c.s
 .PHONY : parser.c.s
 
 tests/test_lexer.o: tests/test_lexer.c.o
@@ -177,6 +193,30 @@ tests/test_lexer.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/tests/test_lexer.c.s
 .PHONY : tests/test_lexer.c.s
 
+tests/test_parser.o: tests/test_parser.c.o
+.PHONY : tests/test_parser.o
+
+# target to build an object file
+tests/test_parser.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.c.o
+.PHONY : tests/test_parser.c.o
+
+tests/test_parser.i: tests/test_parser.c.i
+.PHONY : tests/test_parser.i
+
+# target to preprocess a source file
+tests/test_parser.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.c.i
+.PHONY : tests/test_parser.c.i
+
+tests/test_parser.s: tests/test_parser.c.s
+.PHONY : tests/test_parser.s
+
+# target to generate assembly for a file
+tests/test_parser.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.c.s
+.PHONY : tests/test_parser.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +226,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test_lexer"
+	@echo "... test_parser"
 	@echo "... parser.o"
 	@echo "... parser.i"
 	@echo "... parser.s"
 	@echo "... tests/test_lexer.o"
 	@echo "... tests/test_lexer.i"
 	@echo "... tests/test_lexer.s"
+	@echo "... tests/test_parser.o"
+	@echo "... tests/test_parser.i"
+	@echo "... tests/test_parser.s"
 .PHONY : help
 
 
