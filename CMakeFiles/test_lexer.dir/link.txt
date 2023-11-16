@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/test_lexer.dir/tests/test_lexer.c.o CMakeFiles/test_lexer.dir/parser.c.o -o bin/test_lexer 

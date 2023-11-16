@@ -1,0 +1,3 @@
+/home/frederickampsup/Documents/complexia/CMakeFiles/test_lexer.dir
+/home/frederickampsup/Documents/complexia/CMakeFiles/edit_cache.dir
+/home/frederickampsup/Documents/complexia/CMakeFiles/rebuild_cache.dir
