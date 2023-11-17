@@ -7,6 +7,6 @@ int main(int argc, char **argv) {
     Parser parser = { &lexer, out, 0 };
     compile(&parser);
 
-    disasm(out);
+    print_comp(run(out));
     return 0;
 }

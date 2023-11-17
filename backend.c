@@ -126,6 +126,9 @@ void print_tok(Token tok) {
         printf("%s: '%s'\n", tok_typ_to_str(tok.typ), tok.data.str);
     }
 }
+void print_comp(Complex c) {
+    printf("(%f + %fi)\n", c.real, c.imag);
+}
 
 static bool next_is(Parser *p, TokenType typ) {
     return p->l->next.typ == typ;
@@ -250,6 +253,97 @@ void disasm(Bytecode bc) {
             case OP_DONE:
                 printf("OP_DONE\n");
                 idx = bc.length;
+                break;
+            
+            default: printf("UNKNOWN\n");
+        }
+    }
+}
+
+Complex complex_add(Complex z1, Complex z2) {
+    return (Complex) { z1.real + z2.real, z1.imag + z2.imag };
+}
+Complex complex_sub(Complex z1, Complex z2) {
+    return (Complex) { z1.real - z2.real, z1.imag - z2.imag };
+}
+Complex complex_mul(Complex z1, Complex z2) {
+    Complex result;
+    result.real = z1.real * z2.real - z1.imag * z2.imag;
+    result.imag = z1.real * z2.imag + z1.imag * z2.real;
+    return result;
+}
+Complex complex_div(Complex z1, Complex z2) {
+    Complex result;
+    float denominator = z2.real * z2.real + z2.imag * z2.imag;
+
+    result.real = (z1.real * z2.real + z1.imag * z2.imag) / denominator;
+    result.imag = (z1.imag * z2.real - z1.real * z2.imag) / denominator;
+
+    return result;
+}
+Complex complex_pow(Complex z1, Complex z2) {
+    // Convert z1 to polar form
+    float r1 = sqrtf(z1.real * z1.real + z1.imag * z1.imag);
+    float theta1 = atan2f(z1.imag, z1.real);
+
+    // Compute the power in polar form
+    float result_r = powf(r1, z2.real) * expf(-z2.imag * theta1);
+    float result_theta = z2.real * theta1 + z2.imag * logf(r1);
+
+    // Convert the result back to Cartesian form
+    Complex result;
+    result.real = result_r * cosf(result_theta);
+    result.imag = result_r * sinf(result_theta);
+
+    return result;
+}
+
+Complex run(Bytecode bc) {
+    Complex stack[256]; // TODO: dynamically grow this if needed
+    unsigned int sp = 0;
+    unsigned int idx = 0;
+    Complex l,r;
+    while (idx < bc.length) {
+        switch (bc.data[idx]) {
+            case OP_CONST:
+                Complex z = { *((float *)(bc.data + idx + 1)), *((float *)(bc.data + idx + 1 + sizeof(float))) };
+                stack[sp++] = z;
+                idx += 1 + sizeof(float) * 2;
+                break;
+            
+            case OP_ADD:
+                r = stack[--sp];
+                l = stack[--sp];
+                stack[sp++] = complex_add(l,r);
+                ++idx;
+                break;
+            case OP_SUB:
+                r = stack[--sp];
+                l = stack[--sp];
+                stack[sp++] = complex_sub(l,r);
+                ++idx;
+                break;
+            case OP_MUL:
+                r = stack[--sp];
+                l = stack[--sp];
+                stack[sp++] = complex_mul(l,r);
+                ++idx;
+                break;
+            case OP_DIV:
+                r = stack[--sp];
+                l = stack[--sp];
+                stack[sp++] = complex_div(l,r);
+                ++idx;
+                break;
+            case OP_POW:
+                r = stack[--sp];
+                l = stack[--sp];
+                stack[sp++] = complex_pow(l,r);
+                ++idx;
+                break;
+
+            case OP_DONE:
+                return stack[--sp];
                 break;
             
             default: printf("UNKNOWN\n");

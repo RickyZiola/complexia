@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_eval
+
+# Build rule for target.
+test_eval: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_eval
+.PHONY : test_eval
+
+# fast build rule for target.
+test_eval/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/build
+.PHONY : test_eval/fast
+
+#=============================================================================
 # Target rules for targets named test_lexer
 
 # Build rule for target.
@@ -147,6 +160,7 @@ backend.o: backend.c.o
 
 # target to build an object file
 backend.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/backend.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.o
 .PHONY : backend.c.o
@@ -156,6 +170,7 @@ backend.i: backend.c.i
 
 # target to preprocess a source file
 backend.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/backend.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.i
 .PHONY : backend.c.i
@@ -165,9 +180,34 @@ backend.s: backend.c.s
 
 # target to generate assembly for a file
 backend.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/backend.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.s
 .PHONY : backend.c.s
+
+tests/test_eval.o: tests/test_eval.c.o
+.PHONY : tests/test_eval.o
+
+# target to build an object file
+tests/test_eval.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/tests/test_eval.c.o
+.PHONY : tests/test_eval.c.o
+
+tests/test_eval.i: tests/test_eval.c.i
+.PHONY : tests/test_eval.i
+
+# target to preprocess a source file
+tests/test_eval.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/tests/test_eval.c.i
+.PHONY : tests/test_eval.c.i
+
+tests/test_eval.s: tests/test_eval.c.s
+.PHONY : tests/test_eval.s
+
+# target to generate assembly for a file
+tests/test_eval.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/tests/test_eval.c.s
+.PHONY : tests/test_eval.c.s
 
 tests/test_lexer.o: tests/test_lexer.c.o
 .PHONY : tests/test_lexer.o
@@ -225,11 +265,15 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test_eval"
 	@echo "... test_lexer"
 	@echo "... test_parser"
 	@echo "... backend.o"
 	@echo "... backend.i"
 	@echo "... backend.s"
+	@echo "... tests/test_eval.o"
+	@echo "... tests/test_eval.i"
+	@echo "... tests/test_eval.s"
 	@echo "... tests/test_lexer.o"
 	@echo "... tests/test_lexer.i"
 	@echo "... tests/test_lexer.s"

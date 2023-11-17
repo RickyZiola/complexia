@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/test_eval.dir/tests/test_eval.c.o CMakeFiles/test_eval.dir/backend.c.o -o bin/test_eval  -lm 

@@ -7,6 +7,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB TEST_SOURCES tests/*.c)
 
+# C math library (-lm on command-line)
+link_libraries(m)
 # Iterate over each test source file
 foreach(TEST_SOURCE ${TEST_SOURCES})
     # Extract the file name without extension

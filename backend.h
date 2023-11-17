@@ -65,6 +65,7 @@ char current(Lexer *lexer);
 bool at_end(Lexer *lexer);
 Token scan(Lexer *lexer);
 void print_tok(Token tok);
+void print_comp(Complex c);
 
 void compile(Parser *parser);  // Compile. This is essentially an alias for expr
 void expr(Parser *parser);     // Expression
@@ -75,5 +76,13 @@ void term(Parser *parser);     // Add/sub
 void primary(Parser *parser);  // Number constant
 
 void disasm(Bytecode bc);
+
+Complex complex_add(Complex z1, Complex z2);
+Complex complex_sub(Complex z1, Complex z2);
+Complex complex_mul(Complex z1, Complex z2);
+Complex complex_div(Complex z1, Complex z2);
+Complex complex_pow(Complex z1, Complex z2);
+
+Complex run(Bytecode bc);
 
 #endif
