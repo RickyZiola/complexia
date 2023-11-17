@@ -1,8 +1,7 @@
-CMakeFiles/test_lexer.dir/tests/test_lexer.c.o: \
- /home/frederickampsup/Documents/complexia/tests/test_lexer.c \
+CMakeFiles/test_lexer.dir/backend.c.o: \
+ /home/frederickampsup/Documents/complexia/backend.c \
  /usr/include/stdc-predef.h \
- /home/frederickampsup/Documents/complexia/tests/../backend.h \
- /usr/include/stdio.h \
+ /home/frederickampsup/Documents/complexia/backend.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -53,4 +52,11 @@ CMakeFiles/test_lexer.dir/tests/test_lexer.c.o: \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/strings.h
+ /usr/include/strings.h /usr/include/ctype.h /usr/include/math.h \
+ /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h

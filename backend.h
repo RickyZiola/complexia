@@ -49,11 +49,15 @@ typedef struct Lexer {
     Token next;
 } Lexer;
 
-typedef unsigned char *Bytecode;
+typedef struct Bytecode {
+    unsigned int length;
+    unsigned char *data;
+} Bytecode;
 
 typedef struct Parser {
     Lexer *l;
     Bytecode out;
+    unsigned int out_idx;
 } Parser;
 
 char next(Lexer *lexer);

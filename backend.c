@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "backend.h"
 #include <ctype.h>
 #include <math.h>
 
@@ -136,25 +136,42 @@ static bool consume(Parser *p, TokenType typ) {
     return true;
 }
 
+void emitOp(Parser *p, Opcode op) {
+    p->out.data[p->out_idx++] = op;
+}
+void emitComp(Parser *p, Complex c) {
+    *((float *)(p->out.data+(p->out_idx))) = c.real;
+    p->out_idx += sizeof(float);
+    *((float *)(p->out.data+(p->out_idx))) = c.imag;
+    p->out_idx += sizeof(float);
+}
+
 void compile(Parser *p) {
     expr(p);
+    emitOp(p, OP_DONE);
 }
 void expr(Parser *p) {
     term(p);
+
 }
 void term(Parser *p) {
     // left operand
     factor(p);
 
     while (next_is(p, TOKEN_PLUS) || next_is(p, TOKEN_MINUS)) {
-        printf(" term \n");
-        if (consume(p, TOKEN_PLUS) && consume(p, TOKEN_MINUS)) {
-            printf("Expected expression after plus or minus token.\n");
+        bool plus, minus;
+        plus  = consume(p,  TOKEN_PLUS);
+        minus = consume(p, TOKEN_MINUS);
+
+        if (plus && minus) {
+            printf("Expected expression after plus/minus token.\n");
             exit(EXIT_FAILURE);
         }
 
         // right operand
         factor(p);
+        if (plus ) emitOp(p, TOKEN_PLUS );
+        if (minus) emitOp(p, TOKEN_MINUS);
     }
 }
 void factor(Parser *p) {
@@ -162,44 +179,80 @@ void factor(Parser *p) {
     exponent(p);
 
     while (next_is(p, TOKEN_MULT) || next_is(p, TOKEN_DIV)) {
-        printf(" fac \n");
-        if (consume(p, TOKEN_MULT) && consume(p, TOKEN_DIV)) {
-            printf("Expected expression after mult or div token.\n");
+        bool mult, div;
+        mult = consume(p, TOKEN_MULT);
+        div  = consume(p, TOKEN_DIV );
+
+        if (mult && div) {
+            printf("Expected expression after plus/minus token.\n");
             exit(EXIT_FAILURE);
         }
 
         // right operand
         exponent(p);
+        if (mult) emitOp(p, TOKEN_MULT);
+        if (div ) emitOp(p, TOKEN_DIV );
     }
 }
 void exponent(Parser *p) {
     // left operand
-    paren(p);
+    primary(p);
 
     while (next_is(p, TOKEN_POW)) {
-        printf(" pow \n");
         consume(p, TOKEN_POW);
 
         // right operand
-        paren(p);
+        primary(p);
+        emitOp(p, OP_POW);
     }
+}
+void primary(Parser *p) {
+    if (next_is(p, TOKEN_NUMBER_LITERAL)) {
+        emitOp(p, OP_CONST);
+        Token n = scan(p->l);
+        emitComp(p, n.data.num);
+        return;
+    }
+    if (next_is(p, TOKEN_LEFT_PAREN)) return paren(p);
+    printf("Expected number or parentheses. %s\n", tok_typ_to_str(p->l->next.typ));
+    exit(EXIT_FAILURE);
 }
 void paren(Parser *p) {
     if (consume(p, TOKEN_LEFT_PAREN)) {
-        primary(p);
+        expr(p);
         if (!consume(p, TOKEN_RIGHT_PAREN)) {
             printf("Expected closing parenthese.\n");
             exit(EXIT_FAILURE);
         }
     } else {
-        primary(p);
+        expr(p);
     }
 }
-void primary(Parser *p) {
-    if (next_is(p, TOKEN_NUMBER_LITERAL)) {
-        // TODO: bytecode for number literals
-        print_tok(scan(p->l));
-        return;
+
+void disasm(Bytecode bc) {
+    unsigned int idx = 0;
+    while (idx < bc.length) {
+        switch (bc.data[idx]) {
+            case OP_CONST:
+                printf("OP_CONST (%f + %fi)\n", *((float *)(bc.data + idx + 1)), *((float *)(bc.data + idx + 1 + sizeof(float))));
+                idx += 1 + sizeof(float) * 2;
+                break;
+            
+            case OP_ADD:
+            case OP_SUB:
+            case OP_MUL:
+            case OP_DIV:
+            case OP_POW:
+                printf("%s\n", opcode_to_str(bc.data[idx]));
+                ++idx;
+                break;
+
+            case OP_DONE:
+                printf("OP_DONE\n");
+                idx = bc.length;
+                break;
+            
+            default: printf("UNKNOWN\n");
+        }
     }
-    expr(p);
 }

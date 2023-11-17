@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/test_lexer.dir/parser.c.o"
-  "CMakeFiles/test_lexer.dir/parser.c.o.d"
+  "CMakeFiles/test_lexer.dir/backend.c.o"
+  "CMakeFiles/test_lexer.dir/backend.c.o.d"
   "CMakeFiles/test_lexer.dir/tests/test_lexer.c.o"
   "CMakeFiles/test_lexer.dir/tests/test_lexer.c.o.d"
   "bin/test_lexer"

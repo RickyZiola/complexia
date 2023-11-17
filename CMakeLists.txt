@@ -1,5 +1,5 @@
 # CMake minimum version
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 # Project name
 project(YourProjectName)
@@ -13,7 +13,7 @@ foreach(TEST_SOURCE ${TEST_SOURCES})
     get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
 
     # Create an executable for each test source file
-    add_executable(${TEST_NAME} ${TEST_SOURCE} parser.c)
+    add_executable(${TEST_NAME} ${TEST_SOURCE} backend.c)
 
     # Optionally, link any necessary libraries
     # target_link_libraries(${TEST_NAME} some_library)

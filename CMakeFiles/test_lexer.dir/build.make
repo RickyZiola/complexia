@@ -83,30 +83,30 @@ CMakeFiles/test_lexer.dir/tests/test_lexer.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/test_lexer.dir/tests/test_lexer.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/frederickampsup/Documents/complexia/tests/test_lexer.c -o CMakeFiles/test_lexer.dir/tests/test_lexer.c.s
 
-CMakeFiles/test_lexer.dir/parser.c.o: CMakeFiles/test_lexer.dir/flags.make
-CMakeFiles/test_lexer.dir/parser.c.o: parser.c
-CMakeFiles/test_lexer.dir/parser.c.o: CMakeFiles/test_lexer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/frederickampsup/Documents/complexia/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/test_lexer.dir/parser.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_lexer.dir/parser.c.o -MF CMakeFiles/test_lexer.dir/parser.c.o.d -o CMakeFiles/test_lexer.dir/parser.c.o -c /home/frederickampsup/Documents/complexia/parser.c
+CMakeFiles/test_lexer.dir/backend.c.o: CMakeFiles/test_lexer.dir/flags.make
+CMakeFiles/test_lexer.dir/backend.c.o: backend.c
+CMakeFiles/test_lexer.dir/backend.c.o: CMakeFiles/test_lexer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/frederickampsup/Documents/complexia/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/test_lexer.dir/backend.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_lexer.dir/backend.c.o -MF CMakeFiles/test_lexer.dir/backend.c.o.d -o CMakeFiles/test_lexer.dir/backend.c.o -c /home/frederickampsup/Documents/complexia/backend.c
 
-CMakeFiles/test_lexer.dir/parser.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/test_lexer.dir/parser.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/frederickampsup/Documents/complexia/parser.c > CMakeFiles/test_lexer.dir/parser.c.i
+CMakeFiles/test_lexer.dir/backend.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/test_lexer.dir/backend.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/frederickampsup/Documents/complexia/backend.c > CMakeFiles/test_lexer.dir/backend.c.i
 
-CMakeFiles/test_lexer.dir/parser.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/test_lexer.dir/parser.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/frederickampsup/Documents/complexia/parser.c -o CMakeFiles/test_lexer.dir/parser.c.s
+CMakeFiles/test_lexer.dir/backend.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/test_lexer.dir/backend.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/frederickampsup/Documents/complexia/backend.c -o CMakeFiles/test_lexer.dir/backend.c.s
 
 # Object files for target test_lexer
 test_lexer_OBJECTS = \
 "CMakeFiles/test_lexer.dir/tests/test_lexer.c.o" \
-"CMakeFiles/test_lexer.dir/parser.c.o"
+"CMakeFiles/test_lexer.dir/backend.c.o"
 
 # External object files for target test_lexer
 test_lexer_EXTERNAL_OBJECTS =
 
 bin/test_lexer: CMakeFiles/test_lexer.dir/tests/test_lexer.c.o
-bin/test_lexer: CMakeFiles/test_lexer.dir/parser.c.o
+bin/test_lexer: CMakeFiles/test_lexer.dir/backend.c.o
 bin/test_lexer: CMakeFiles/test_lexer.dir/build.make
 bin/test_lexer: CMakeFiles/test_lexer.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/frederickampsup/Documents/complexia/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable bin/test_lexer"

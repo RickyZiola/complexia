@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/frederickampsup/Documents/complexia/parser.c" "CMakeFiles/test_lexer.dir/parser.c.o" "gcc" "CMakeFiles/test_lexer.dir/parser.c.o.d"
+  "/home/frederickampsup/Documents/complexia/backend.c" "CMakeFiles/test_lexer.dir/backend.c.o" "gcc" "CMakeFiles/test_lexer.dir/backend.c.o.d"
   "/home/frederickampsup/Documents/complexia/tests/test_lexer.c" "CMakeFiles/test_lexer.dir/tests/test_lexer.c.o" "gcc" "CMakeFiles/test_lexer.dir/tests/test_lexer.c.o.d"
   )
 

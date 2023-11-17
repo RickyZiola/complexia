@@ -1,1 +1,1 @@
-/usr/bin/cc -rdynamic CMakeFiles/test_parser.dir/tests/test_parser.c.o CMakeFiles/test_parser.dir/parser.c.o -o bin/test_parser 
+/usr/bin/cc CMakeFiles/test_parser.dir/tests/test_parser.c.o CMakeFiles/test_parser.dir/backend.c.o -o bin/test_parser 

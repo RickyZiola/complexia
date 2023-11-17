@@ -142,32 +142,32 @@ test_parser/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/build
 .PHONY : test_parser/fast
 
-parser.o: parser.c.o
-.PHONY : parser.o
+backend.o: backend.c.o
+.PHONY : backend.o
 
 # target to build an object file
-parser.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/parser.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/parser.c.o
-.PHONY : parser.c.o
+backend.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.o
+.PHONY : backend.c.o
 
-parser.i: parser.c.i
-.PHONY : parser.i
+backend.i: backend.c.i
+.PHONY : backend.i
 
 # target to preprocess a source file
-parser.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/parser.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/parser.c.i
-.PHONY : parser.c.i
+backend.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.i
+.PHONY : backend.c.i
 
-parser.s: parser.c.s
-.PHONY : parser.s
+backend.s: backend.c.s
+.PHONY : backend.s
 
 # target to generate assembly for a file
-parser.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/parser.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/parser.c.s
-.PHONY : parser.c.s
+backend.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.s
+.PHONY : backend.c.s
 
 tests/test_lexer.o: tests/test_lexer.c.o
 .PHONY : tests/test_lexer.o
@@ -227,9 +227,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test_lexer"
 	@echo "... test_parser"
-	@echo "... parser.o"
-	@echo "... parser.i"
-	@echo "... parser.s"
+	@echo "... backend.o"
+	@echo "... backend.i"
+	@echo "... backend.s"
 	@echo "... tests/test_lexer.o"
 	@echo "... tests/test_lexer.i"
 	@echo "... tests/test_lexer.s"
