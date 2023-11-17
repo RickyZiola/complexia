@@ -18,6 +18,8 @@ const char* tok_typ_to_str(TokenType tokenType) {
         STRINGIFY_ENUM_CASE(TOKEN_POW)
         STRINGIFY_ENUM_CASE(TOKEN_HASH)
         STRINGIFY_ENUM_CASE(TOKEN_ID)
+        STRINGIFY_ENUM_CASE(TOKEN_SIN)
+        STRINGIFY_ENUM_CASE(TOKEN_COS)
         STRINGIFY_ENUM_CASE(TOKEN_EQ)
         STRINGIFY_ENUM_CASE(TOKEN_LEFT_PAREN)
         STRINGIFY_ENUM_CASE(TOKEN_RIGHT_PAREN)
@@ -35,6 +37,8 @@ const char *opcode_to_str(Opcode opcode) {
         STRINGIFY_ENUM_CASE(OP_DIV)
         STRINGIFY_ENUM_CASE(OP_POW)
         STRINGIFY_ENUM_CASE(OP_NEG)
+        STRINGIFY_ENUM_CASE(OP_SIN)
+        STRINGIFY_ENUM_CASE(OP_COS)
         STRINGIFY_ENUM_CASE(OP_DONE)
         default: return "UNKNOWN_OPCODE";
     }
@@ -49,6 +53,8 @@ char current(Lexer *l) {
 bool at_end(Lexer *l) {
     return l->idx >= strlen(l->input);
 }
+
+#define CHECK_KW(name, enum) if (length == strlen(name) && !strcmp(id, name)) return (Token){ (enum), true, name };
 
 static Token scan_single(Lexer *l) {
     while (isspace(next(l)));
@@ -73,6 +79,9 @@ static Token scan_single(Lexer *l) {
             // Pi = ~= 3.1415
             // Ratio of circle's radius to circumference
         if (length == 2 && !strcmp(id, "pi")) return (Token){ TOKEN_NUMBER_LITERAL, true, { .num = { 3.14159265358979323846264338327950288419716939937510 , 0.0f } }};
+
+        CHECK_KW("sin", TOKEN_SIN)
+        CHECK_KW("cos", TOKEN_COS)
 
         return (Token){ TOKEN_ID, true, id };
     }
@@ -109,6 +118,8 @@ static Token scan_single(Lexer *l) {
     printf("Unexpected character '%c'.\n", current(l));
     return (Token){ TOKEN_UNKNOWN, true, NULL };
 }
+
+#undef CHECK_KW
 
 Token scan(Lexer *l) {
     if (l->idx >= strlen(l->input)) return l->next;
@@ -204,11 +215,22 @@ void factor(Parser *p) {
     }
 }
 void unary(Parser *p) {
-    // TODO: functions (sin, cos, log, etc.)
     if (consume(p, TOKEN_MINUS)) {
         // operand. this allows for nested stuff like --5 (-(-5))
         unary(p);
         emitOp(p, OP_NEG);
+        return;
+    }
+    if (consume(p, TOKEN_SIN)) {
+        // operand
+        unary(p);
+        emitOp(p, OP_SIN);
+        return;
+    }
+    if (consume(p, TOKEN_COS)) {
+        // operand
+        unary(p);
+        emitOp(p, OP_COS);
         return;
     }
     exponent(p);
@@ -257,12 +279,15 @@ void disasm(Bytecode bc) {
                 idx += 1 + sizeof(float) * 2;
                 break;
             
+            default:
             case OP_ADD:
             case OP_SUB:
             case OP_MUL:
             case OP_DIV:
             case OP_POW:
             case OP_NEG:
+            case OP_SIN:
+            case OP_COS:
                 printf("%s\n", opcode_to_str(bc.data[idx]));
                 ++idx;
                 break;
@@ -271,8 +296,6 @@ void disasm(Bytecode bc) {
                 printf("OP_DONE\n");
                 idx = bc.length;
                 break;
-            
-            default: printf("UNKNOWN\n"); return;
         }
     }
 }
@@ -313,6 +336,35 @@ Complex complex_pow(Complex z1, Complex z2) {
     result.imag = result_r * sinf(result_theta);
 
     return result;
+}
+Complex complex_mag(Complex z) {
+    return (Complex){ sqrtf(z.real * z.real + z.imag * z.imag), 0.0 };
+}
+Complex complex_exp(Complex z) {
+    Complex result;
+    result.real = expf(z.real) * cosf(z.imag);
+    result.imag = expf(z.real) * sinf(z.imag);
+    return result;
+}
+Complex complex_sin(Complex z) {
+    // sin(z) = (e^(iz) - e^(-iz)) / (2i)
+    Complex iz = {0, 1};
+    Complex numerator = complex_sub(complex_exp(complex_mul(iz, z)), complex_exp(complex_mul(iz, complex_sub((Complex){ 0.0, 0.0 }, z))));
+    Complex denominator = {0, 2};
+    return complex_div(numerator, denominator);
+}
+Complex complex_cos(Complex z) {
+    // cos(z) = (e^(iz) + e^(-iz)) / 2
+    Complex iz = {0, 1};
+    Complex numerator = complex_add(complex_exp(complex_mul(iz, z)), complex_exp(complex_mul(iz, complex_sub((Complex){ 0.0, 0.0 }, z))));
+    Complex denominator = {2, 0};
+    return complex_div(numerator, denominator);
+}
+Complex complex_tan(Complex z) {
+    // tan(z) = sin(z) / cos(z)
+    Complex sin_z = complex_sin(z);
+    Complex cos_z = complex_cos(z);
+    return complex_div(sin_z, cos_z);
 }
 
 Complex run(Bytecode bc) {
@@ -361,6 +413,16 @@ Complex run(Bytecode bc) {
             case OP_NEG:
                 r = stack[--sp];
                 stack[sp++] = complex_sub((Complex){ 0.0f, 0.0f },r);
+                ++idx;
+                break;
+            case OP_SIN:
+                r = stack[--sp];
+                stack[sp++] = complex_sin(r);
+                ++idx;
+                break;
+            case OP_COS:
+                r = stack[--sp];
+                stack[sp++] = complex_cos(r);
                 ++idx;
                 break;
 

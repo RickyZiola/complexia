@@ -155,6 +155,19 @@ test_parser/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/build
 .PHONY : test_parser/fast
 
+#=============================================================================
+# Target rules for targets named complexia
+
+# Build rule for target.
+complexia: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 complexia
+.PHONY : complexia
+
+# fast build rule for target.
+complexia/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/build
+.PHONY : complexia/fast
+
 backend.o: backend.c.o
 .PHONY : backend.o
 
@@ -163,6 +176,7 @@ backend.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/backend.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/backend.c.o
 .PHONY : backend.c.o
 
 backend.i: backend.c.i
@@ -173,6 +187,7 @@ backend.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/backend.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/backend.c.i
 .PHONY : backend.c.i
 
 backend.s: backend.c.s
@@ -183,6 +198,7 @@ backend.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_eval.dir/build.make CMakeFiles/test_eval.dir/backend.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_lexer.dir/build.make CMakeFiles/test_lexer.dir/backend.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/backend.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/backend.c.s
 .PHONY : backend.c.s
 
 tests/test_eval.o: tests/test_eval.c.o
@@ -257,6 +273,30 @@ tests/test_parser.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_parser.dir/build.make CMakeFiles/test_parser.dir/tests/test_parser.c.s
 .PHONY : tests/test_parser.c.s
 
+utils/complexia_cli.o: utils/complexia_cli.c.o
+.PHONY : utils/complexia_cli.o
+
+# target to build an object file
+utils/complexia_cli.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/utils/complexia_cli.c.o
+.PHONY : utils/complexia_cli.c.o
+
+utils/complexia_cli.i: utils/complexia_cli.c.i
+.PHONY : utils/complexia_cli.i
+
+# target to preprocess a source file
+utils/complexia_cli.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/utils/complexia_cli.c.i
+.PHONY : utils/complexia_cli.c.i
+
+utils/complexia_cli.s: utils/complexia_cli.c.s
+.PHONY : utils/complexia_cli.s
+
+# target to generate assembly for a file
+utils/complexia_cli.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/complexia.dir/build.make CMakeFiles/complexia.dir/utils/complexia_cli.c.s
+.PHONY : utils/complexia_cli.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -265,6 +305,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... complexia"
 	@echo "... test_eval"
 	@echo "... test_lexer"
 	@echo "... test_parser"
@@ -280,6 +321,9 @@ help:
 	@echo "... tests/test_parser.o"
 	@echo "... tests/test_parser.i"
 	@echo "... tests/test_parser.s"
+	@echo "... utils/complexia_cli.o"
+	@echo "... utils/complexia_cli.i"
+	@echo "... utils/complexia_cli.s"
 .PHONY : help
 
 

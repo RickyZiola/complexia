@@ -10,6 +10,7 @@ typedef enum Opcode {
     OP_CONST,
     OP_ADD, OP_SUB,
     OP_MUL, OP_DIV, OP_NEG,
+    OP_SIN, OP_COS,
     OP_POW, OP_DONE
 } Opcode;
 
@@ -19,6 +20,7 @@ typedef enum TokenType {
     TOKEN_MULT, TOKEN_DIV,
     TOKEN_POW, TOKEN_HASH,
     TOKEN_ID, TOKEN_EQ,
+    TOKEN_SIN, TOKEN_COS,
     TOKEN_LEFT_PAREN, TOKEN_RIGHT_PAREN,
 
     TOKEN_EOF, TOKEN_UNKNOWN

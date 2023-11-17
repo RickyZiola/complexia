@@ -22,3 +22,5 @@ foreach(TEST_SOURCE ${TEST_SOURCES})
     # Optionally, link any necessary libraries
     # target_link_libraries(${TEST_NAME} some_library)
 endforeach()
+
+add_executable(complexia utils/complexia_cli.c backend.c)

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
-    Lexer lexer = { "#-35", 0, {0, false, NULL}};
+    Lexer lexer = { "#e^(i*pi)", 0, {0, false, NULL}};
     Bytecode out = { 1024, malloc(1024) };
     Parser parser = { &lexer, out, 0 };
     compile(&parser);
