@@ -16,6 +16,7 @@ const char* tok_typ_to_str(TokenType tokenType) {
         STRINGIFY_ENUM_CASE(TOKEN_MULT)
         STRINGIFY_ENUM_CASE(TOKEN_DIV)
         STRINGIFY_ENUM_CASE(TOKEN_POW)
+        STRINGIFY_ENUM_CASE(TOKEN_HASH)
         STRINGIFY_ENUM_CASE(TOKEN_ID)
         STRINGIFY_ENUM_CASE(TOKEN_EQ)
         STRINGIFY_ENUM_CASE(TOKEN_LEFT_PAREN)
@@ -33,6 +34,7 @@ const char *opcode_to_str(Opcode opcode) {
         STRINGIFY_ENUM_CASE(OP_MUL)
         STRINGIFY_ENUM_CASE(OP_DIV)
         STRINGIFY_ENUM_CASE(OP_POW)
+        STRINGIFY_ENUM_CASE(OP_NEG)
         STRINGIFY_ENUM_CASE(OP_DONE)
         default: return "UNKNOWN_OPCODE";
     }
@@ -93,21 +95,23 @@ static Token scan_single(Lexer *l) {
         }
     }
 
-    if (current(l) == '+') { (void) next(l); return (Token){ TOKEN_PLUS,  "+" }; }
-    if (current(l) == '-') { (void) next(l); return (Token){ TOKEN_MINUS, "-" }; }
-    if (current(l) == '*') { (void) next(l); return (Token){ TOKEN_MULT,  "*" }; }
-    if (current(l) == '/') { (void) next(l); return (Token){ TOKEN_DIV,   "/" }; }
-    if (current(l) == '^') { (void) next(l); return (Token){ TOKEN_POW,   "^" }; }
+    if (current(l) == '+') { (void) next(l); return (Token){ TOKEN_PLUS,  true, "+" }; }
+    if (current(l) == '-') { (void) next(l); return (Token){ TOKEN_MINUS, true, "-" }; }
+    if (current(l) == '*') { (void) next(l); return (Token){ TOKEN_MULT,  true, "*" }; }
+    if (current(l) == '/') { (void) next(l); return (Token){ TOKEN_DIV,   true, "/" }; }
+    if (current(l) == '^') { (void) next(l); return (Token){ TOKEN_POW,   true, "^" }; }
+    if (current(l) == '#') { (void) next(l); return (Token){ TOKEN_HASH,  true, "#" }; }
 
-    if (current(l) == '=') { (void) next(l); return (Token){ TOKEN_EQ,    "=" }; }
-    if (current(l) == '(') { (void) next(l); return (Token){ TOKEN_LEFT_PAREN,  "(" }; }
-    if (current(l) == ')') { (void) next(l); return (Token){ TOKEN_RIGHT_PAREN, ")" }; }
+    if (current(l) == '=') { (void) next(l); return (Token){ TOKEN_EQ,    true, "=" }; }
+    if (current(l) == '(') { (void) next(l); return (Token){ TOKEN_LEFT_PAREN,  true, "(" }; }
+    if (current(l) == ')') { (void) next(l); return (Token){ TOKEN_RIGHT_PAREN, true, ")" }; }
 
     printf("Unexpected character '%c'.\n", current(l));
     return (Token){ TOKEN_UNKNOWN, true, NULL };
 }
 
 Token scan(Lexer *l) {
+    if (l->idx >= strlen(l->input)) return l->next;
     if (!l->next.exists) {
         Token c = scan_single(l);
         l->next = scan_single(l);
@@ -150,6 +154,8 @@ void emitComp(Parser *p, Complex c) {
 }
 
 void compile(Parser *p) {
+    (void) scan(p->l); // we need a leading token to correctly start parsing. we use a hash.
+                       // there's probably a better way, but this works fine and it's not hard.
     expr(p);
     emitOp(p, OP_DONE);
 }
@@ -163,8 +169,8 @@ void term(Parser *p) {
 
     while (next_is(p, TOKEN_PLUS) || next_is(p, TOKEN_MINUS)) {
         bool plus, minus;
-        plus  = consume(p,  TOKEN_PLUS);
         minus = consume(p, TOKEN_MINUS);
+        plus  = consume(p,  TOKEN_PLUS);
 
         if (plus && minus) {
             printf("Expected expression after plus/minus token.\n");
@@ -179,7 +185,7 @@ void term(Parser *p) {
 }
 void factor(Parser *p) {
     // left operand
-    exponent(p);
+    unary(p);
 
     while (next_is(p, TOKEN_MULT) || next_is(p, TOKEN_DIV)) {
         bool mult, div;
@@ -192,10 +198,20 @@ void factor(Parser *p) {
         }
 
         // right operand
-        exponent(p);
+        unary(p);
         if (mult) emitOp(p, TOKEN_MULT);
         if (div ) emitOp(p, TOKEN_DIV );
     }
+}
+void unary(Parser *p) {
+    // TODO: functions (sin, cos, log, etc.)
+    if (consume(p, TOKEN_MINUS)) {
+        // operand. this allows for nested stuff like --5 (-(-5))
+        unary(p);
+        emitOp(p, OP_NEG);
+        return;
+    }
+    exponent(p);
 }
 void exponent(Parser *p) {
     // left operand
@@ -246,6 +262,7 @@ void disasm(Bytecode bc) {
             case OP_MUL:
             case OP_DIV:
             case OP_POW:
+            case OP_NEG:
                 printf("%s\n", opcode_to_str(bc.data[idx]));
                 ++idx;
                 break;
@@ -255,7 +272,7 @@ void disasm(Bytecode bc) {
                 idx = bc.length;
                 break;
             
-            default: printf("UNKNOWN\n");
+            default: printf("UNKNOWN\n"); return;
         }
     }
 }
@@ -341,12 +358,17 @@ Complex run(Bytecode bc) {
                 stack[sp++] = complex_pow(l,r);
                 ++idx;
                 break;
+            case OP_NEG:
+                r = stack[--sp];
+                stack[sp++] = complex_sub((Complex){ 0.0f, 0.0f },r);
+                ++idx;
+                break;
 
             case OP_DONE:
                 return stack[--sp];
                 break;
             
-            default: printf("UNKNOWN\n");
+            default: printf("UNKNOWN\n"); return (Complex){ 0.0f, 0.0f };
         }
     }
 }

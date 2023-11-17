@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/test_lexer.dir/tests/test_lexer.c.o CMakeFiles/test_lexer.dir/backend.c.o -o bin/test_lexer  -lm 
+/usr/bin/cc -g CMakeFiles/test_lexer.dir/tests/test_lexer.c.o CMakeFiles/test_lexer.dir/backend.c.o -o bin/test_lexer  -lm 

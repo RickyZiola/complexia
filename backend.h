@@ -9,7 +9,7 @@
 typedef enum Opcode {
     OP_CONST,
     OP_ADD, OP_SUB,
-    OP_MUL, OP_DIV,
+    OP_MUL, OP_DIV, OP_NEG,
     OP_POW, OP_DONE
 } Opcode;
 
@@ -17,7 +17,7 @@ typedef enum TokenType {
     TOKEN_NUMBER_LITERAL,
     TOKEN_PLUS, TOKEN_MINUS,
     TOKEN_MULT, TOKEN_DIV,
-    TOKEN_POW,
+    TOKEN_POW, TOKEN_HASH,
     TOKEN_ID, TOKEN_EQ,
     TOKEN_LEFT_PAREN, TOKEN_RIGHT_PAREN,
 
@@ -72,6 +72,7 @@ void expr(Parser *parser);     // Expression
 void paren(Parser *parser);    // Parenthesized expression
 void exponent(Parser *parser); // Exponent (a^b)
 void factor(Parser *parser);   // Mult/div
+void unary(Parser *parser);    // Negation, functions (sin, cos, log, etc.)
 void term(Parser *parser);     // Add/sub
 void primary(Parser *parser);  // Number constant
 
