@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/test_eval.dir/tests/test_eval.c.o -c /home/frederickampsup/Documents/complexia/tests/test_eval.c",
+  "file": "/home/frederickampsup/Documents/complexia/tests/test_eval.c",
+  "output": "CMakeFiles/test_eval.dir/tests/test_eval.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/test_eval.dir/backend.c.o -c /home/frederickampsup/Documents/complexia/backend.c",
+  "file": "/home/frederickampsup/Documents/complexia/backend.c",
+  "output": "CMakeFiles/test_eval.dir/backend.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/test_lexer.dir/tests/test_lexer.c.o -c /home/frederickampsup/Documents/complexia/tests/test_lexer.c",
+  "file": "/home/frederickampsup/Documents/complexia/tests/test_lexer.c",
+  "output": "CMakeFiles/test_lexer.dir/tests/test_lexer.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/test_lexer.dir/backend.c.o -c /home/frederickampsup/Documents/complexia/backend.c",
+  "file": "/home/frederickampsup/Documents/complexia/backend.c",
+  "output": "CMakeFiles/test_lexer.dir/backend.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/test_parser.dir/tests/test_parser.c.o -c /home/frederickampsup/Documents/complexia/tests/test_parser.c",
+  "file": "/home/frederickampsup/Documents/complexia/tests/test_parser.c",
+  "output": "CMakeFiles/test_parser.dir/tests/test_parser.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/test_parser.dir/backend.c.o -c /home/frederickampsup/Documents/complexia/backend.c",
+  "file": "/home/frederickampsup/Documents/complexia/backend.c",
+  "output": "CMakeFiles/test_parser.dir/backend.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/complexia.dir/utils/complexia_cli.c.o -c /home/frederickampsup/Documents/complexia/utils/complexia_cli.c",
+  "file": "/home/frederickampsup/Documents/complexia/utils/complexia_cli.c",
+  "output": "CMakeFiles/complexia.dir/utils/complexia_cli.c.o"
+},
+{
+  "directory": "/home/frederickampsup/Documents/complexia/build",
+  "command": "/usr/bin/clang -g -o CMakeFiles/complexia.dir/backend.c.o -c /home/frederickampsup/Documents/complexia/backend.c",
+  "file": "/home/frederickampsup/Documents/complexia/backend.c",
+  "output": "CMakeFiles/complexia.dir/backend.c.o"
+}
+]

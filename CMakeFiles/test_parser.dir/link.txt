@@ -1,1 +1,1 @@
-/usr/bin/cc -g CMakeFiles/test_parser.dir/tests/test_parser.c.o CMakeFiles/test_parser.dir/backend.c.o -o bin/test_parser  -lm 
+/usr/bin/cc CMakeFiles/test_parser.dir/tests/test_parser.c.o CMakeFiles/test_parser.dir/backend.c.o -o bin/test_parser  -lm 

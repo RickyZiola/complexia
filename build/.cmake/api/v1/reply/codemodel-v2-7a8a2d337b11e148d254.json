@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Complexia",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "complexia::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-complexia-Debug-a7d15ce08577d517ce9d.json",
+					"name" : "complexia",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_eval::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_eval-Debug-6e7ab6d0b081959d7c77.json",
+					"name" : "test_eval",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_lexer::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_lexer-Debug-dc189d980d5c6f45df8e.json",
+					"name" : "test_lexer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_parser::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_parser-Debug-7e4aed8f92e127030428.json",
+					"name" : "test_parser",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/frederickampsup/Documents/complexia/build",
+		"source" : "/home/frederickampsup/Documents/complexia"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

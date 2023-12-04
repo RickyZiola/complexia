@@ -1,0 +1,6 @@
+/home/frederickampsup/Documents/complexia/build/CMakeFiles/test_eval.dir
+/home/frederickampsup/Documents/complexia/build/CMakeFiles/test_lexer.dir
+/home/frederickampsup/Documents/complexia/build/CMakeFiles/test_parser.dir
+/home/frederickampsup/Documents/complexia/build/CMakeFiles/complexia.dir
+/home/frederickampsup/Documents/complexia/build/CMakeFiles/edit_cache.dir
+/home/frederickampsup/Documents/complexia/build/CMakeFiles/rebuild_cache.dir

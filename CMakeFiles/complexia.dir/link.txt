@@ -1,1 +1,1 @@
-/usr/bin/cc -g CMakeFiles/complexia.dir/utils/complexia_cli.c.o CMakeFiles/complexia.dir/backend.c.o -o bin/complexia  -lm 
+/usr/bin/cc CMakeFiles/complexia.dir/utils/complexia_cli.c.o CMakeFiles/complexia.dir/backend.c.o -o bin/complexia  -lm 
